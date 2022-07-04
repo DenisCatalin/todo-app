@@ -4,20 +4,34 @@ import { useContext } from "react";
 import { listContext } from "../../lib/listContext";
 import { themeContext } from "../../lib/themeContext";
 import { mainListContext } from "../../lib/mainListContext";
+import { completedListContext } from "../../lib/completedListContext";
 
-const DeleteButton = ({ id }) => {
+const DeleteButton = ({ id, prio }) => {
   const { taskList, setTaskList } = useContext(listContext);
   const { value, setValue } = useContext(themeContext);
   const { mainTaskList, setMainTaskList } = useContext(mainListContext);
+  const { completedTaskList, setCompletedTaskList } =
+    useContext(completedListContext);
   const taskID = id;
 
   const deleteTask = () => {
-    const remainingArr = taskList.filter((data) => data.taskID !== taskID);
-    setMainTaskList(remainingArr);
-    setTaskList(remainingArr);
-    console.log(remainingArr);
+    if (prio === "completed") {
+      const remainingArr = completedTaskList.filter(
+        (data) => data.taskID !== taskID
+      );
+      setCompletedTaskList(remainingArr);
+      setTaskList(remainingArr);
+      console.log(remainingArr);
 
-    if (remainingArr.length === 0) localStorage.removeItem("mainListOfTasks");
+      if (remainingArr.length === 0) localStorage.removeItem("completedTasks");
+    } else {
+      const remainingArr = taskList.filter((data) => data.taskID !== taskID);
+      setMainTaskList(remainingArr);
+      setTaskList(remainingArr);
+      console.log(remainingArr);
+
+      if (remainingArr.length === 0) localStorage.removeItem("mainListOfTasks");
+    }
   };
   return (
     <>

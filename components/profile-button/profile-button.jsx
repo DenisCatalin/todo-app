@@ -23,9 +23,13 @@ const ProfileButton = () => {
   };
 
   const handleChangeUsername = () => {
-    setOpen(false);
-    setName(newName);
-    localStorage.setItem("name", newName);
+    if (newName.length < 2 || newName.length > 18) {
+      //alert
+    } else {
+      setOpen(false);
+      setName(newName);
+      localStorage.setItem("name", newName);
+    }
   };
 
   const handleClose = () => {
@@ -34,7 +38,7 @@ const ProfileButton = () => {
   return (
     <>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Edit Username</DialogTitle>
+        <DialogTitle sty>Edit Username</DialogTitle>
         <DialogContent>
           <DialogContentText>
             To change your name on this website, please enter your desired

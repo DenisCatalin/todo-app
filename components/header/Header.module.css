@@ -3,6 +3,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  overflow: hidden;
 }
 
 .title {
@@ -13,14 +14,29 @@
   text-align: center;
 }
 
+.controllers {
+  /* background-color: red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: scale(1);
+}
+
 @media screen and (max-width: 450px) {
   .title {
     font-size: 1.3em;
+  }
+  .controllers {
+    transform: scale(1);
+    transform: translateX(10%);
   }
 }
 
 @media screen and (max-width: 350px) {
   .title {
     font-size: 1em;
+  }
+  .controllers {
+    transform: translateX(15%) scale(.8);
   }
 }

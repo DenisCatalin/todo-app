@@ -4,6 +4,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import { useState, useEffect, useContext } from "react";
 import { themeContext } from "../../lib/themeContext";
+import useWindowDimensions from "../../utils/useWindowDimensions";
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -55,6 +56,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 const Darkmode = () => {
   const [darkmode, setDarkmode] = useState();
   const { value, setValue } = useContext(themeContext);
+  const { width } = useWindowDimensions();
 
   useEffect(() => {
     setDarkmode(value);
@@ -76,6 +78,8 @@ const Darkmode = () => {
             checked={darkmode}
           />
         }
+        label={width > 450 ? null : value ? "Dark Mode" : "Light Mode"}
+        style={{ color: "#434343" }}
       />
     </FormGroup>
   );

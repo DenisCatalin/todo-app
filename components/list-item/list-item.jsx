@@ -9,21 +9,16 @@ import styles from "./ListItem.module.css";
 import DeleteButton from "../delete-button/delete-button";
 import CompleteTask from "../complete-task/complete-task";
 import EditTask from "../edit-task/edit-task-button";
-import { showNavContext } from "../../lib/showNavContext";
 
 const ListItem = ({ id, title, desc, prio }) => {
   const [expanded, setExpanded] = useState(false);
   const { value, setValue } = useContext(themeContext);
-  const { showNav, setShowNav } = useContext(showNavContext);
-  const [show, setShow] = useState(true);
   const [openPanels, setOpenPanels] = useState(0);
 
   const taskID = id;
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
-    setShow(!show);
-    setShowNav(!show);
   };
 
   return (
@@ -76,9 +71,17 @@ const ListItem = ({ id, title, desc, prio }) => {
             {desc}
           </Typography>
           <div className={styles.container}>
-            <CompleteTask id={taskID} title={title} desc={desc} />
-            <EditTask id={taskID} title={title} desc={desc} prio={prio} />
-            <DeleteButton id={taskID} />
+            {prio === "completed" ? (
+              <>
+                <DeleteButton id={taskID} prio={prio} />
+              </>
+            ) : (
+              <>
+                <CompleteTask id={taskID} title={title} desc={desc} />
+                <EditTask id={taskID} title={title} desc={desc} prio={prio} />
+                <DeleteButton id={taskID} prio={prio} />
+              </>
+            )}
           </div>
         </AccordionDetails>
       </Accordion>

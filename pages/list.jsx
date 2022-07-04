@@ -13,18 +13,26 @@ import ProfileButton from "../components/profile-button/profile-button.jsx";
 import { showNavContext } from "../lib/showNavContext.js";
 import { motion } from "framer-motion";
 import useWindowDimensions from "../utils/useWindowDimensions.jsx";
+import ListItemCard from "../components/list-item-card/list-item-card.jsx";
+import { showGridContext } from "../lib/showGridContext.js";
 
 export default function ListPage() {
   const { name, setName } = useContext(nameContext);
   const { value, setValue } = useContext(themeContext);
   const { taskList, setTaskList } = useContext(listContext);
   const { showNav, setShowNav } = useContext(showNavContext);
+  const { showGrid, setShowGrid } = useContext(showGridContext);
   const { width, height } = useWindowDimensions();
   const [newName, setNewName] = useState("");
+  const [showTasksAccordion, setShowTasksAccordion] = useState();
 
   useEffect(() => {
     setNewName(name);
   }, [name]);
+
+  useEffect(() => {
+    setShowTasksAccordion(showGrid);
+  }, [showGrid]);
 
   return (
     <div
@@ -39,19 +47,33 @@ export default function ListPage() {
       </div>
       <div className={styles.content}>
         <motion.div
-          className={styles.mainList}
+          className={showTasksAccordion ? styles.mainList : styles.mainListGrid}
           animate={{ opacity: [0, 1], x: [-200, 0] }}
           initial={{ opacity: 0 }}
         >
-          {taskList.map((item, i) => (
-            <ListItem
-              id={item.taskID}
-              title={item.taskTitle}
-              desc={item.taskDescription}
-              prio={item.taskPriority}
-              key={i}
-            />
-          ))}
+          {taskList.map((item, i) =>
+            showTasksAccordion ? (
+              <>
+                <ListItem
+                  key={item.taskID + i}
+                  id={item.taskID}
+                  title={item.taskTitle}
+                  desc={item.taskDescription}
+                  prio={item.taskPriority}
+                />
+              </>
+            ) : (
+              <>
+                <ListItemCard
+                  key={item.taskID + i}
+                  id={item.taskID}
+                  title={item.taskTitle}
+                  desc={item.taskDescription}
+                  prio={item.taskPriority}
+                />
+              </>
+            )
+          )}
         </motion.div>
         <motion.div
           className={styles.navbar}

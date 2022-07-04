@@ -6,12 +6,16 @@ export const iconColors = createTheme({
   },
   palette: {
     primary: {
-      main: "#0971f1",
-      darker: "#053e85",
+      main: "#434343",
+      darker: "#434343",
     },
     neutral: {
       main: "#FFFFFF",
       contrastText: "#fff",
+    },
+    dark: {
+      main: "#434343",
+      contrastText: "#434343",
     },
   },
 });

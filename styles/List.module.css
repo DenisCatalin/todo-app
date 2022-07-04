@@ -22,11 +22,26 @@
 }
 
 .mainList {
-    width: 90%;
-  height: 100%;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
-  border-radius: 20px;
-  overflow: auto;
+  width: 90%;
+height: 100%;
+box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
+border-radius: 20px;
+/* align-items: center; */
+/* justify-content: center; */
+overflow: auto;
+}
+
+.mainListGrid {
+  width: 90%;
+height: 100%;
+box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
+border-radius: 20px;
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+gap: 2ch;
+grid-template-rows: auto auto 1fr 1fr 1fr auto auto;
+overflow: auto;
+padding: .5rem;
 }
 
 .content {
@@ -58,6 +73,10 @@
   .mainList {
     width: 100%;
   }
+  .mainListGrid {
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  }
   .navbar {
     position: absolute;
     width: 100%;
@@ -67,9 +86,20 @@
   }
 }
 
+@media screen and (max-width: 380px) {
+  .mainListGrid {
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
+}
+
 @media screen and (max-width: 350px) {
   .mainList {
     width: 100%;
+  }
+  .mainListGrid {
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   }
   .navbar {
     position: absolute;
