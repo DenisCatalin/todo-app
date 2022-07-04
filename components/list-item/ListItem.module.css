@@ -1,0 +1,23 @@
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.titleItem {
+    font-family: "Rambla";
+    font-size: 1.2em;
+}
+
+.fade {
+    animation: fade;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+    to{ opacity: 1; }
+}

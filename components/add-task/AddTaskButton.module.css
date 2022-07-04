@@ -1,0 +1,50 @@
+.button {
+    width: 80px;
+  height: 80px;
+  margin-bottom: 20px;
+  cursor: pointer;
+
+  border: none;
+  outline: none;
+
+  background: linear-gradient(
+    271.1deg,
+    var(--linearOrange) -3.34%,
+    var(--linearRed) 99.24%
+  );
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25),
+    inset 5px 5px 10px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 950px) {
+  .button {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .button {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .button {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@supports (-webkit-touch-callout: none) {
+    .button {
+        outline: none;
+    border: none;
+    }
+    
+  }

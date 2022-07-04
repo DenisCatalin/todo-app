@@ -1,0 +1,26 @@
+.headerContainer {
+    width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-family: "Rajdhani";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 2em;
+  text-align: center;
+}
+
+@media screen and (max-width: 450px) {
+  .title {
+    font-size: 1.3em;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .title {
+    font-size: 1em;
+  }
+}
