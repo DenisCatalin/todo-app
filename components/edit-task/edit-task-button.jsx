@@ -26,6 +26,7 @@ const EditTask = ({ id, title, desc, prio }) => {
   const [taskSubject, setTaskSubject] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [taskPriority, setTaskPriority] = useState("");
+  const [valueDescription, setValueDescription] = useState(desc);
 
   const taskID = id;
 
@@ -103,7 +104,6 @@ const EditTask = ({ id, title, desc, prio }) => {
           />
           <TextareaAutosize
             aria-label="empty textarea"
-            placeholder={desc}
             style={{
               width: "100%",
               height: height > 1050 ? height / 3.5 : height / 4,
@@ -113,7 +113,11 @@ const EditTask = ({ id, title, desc, prio }) => {
               borderRadius: "5px",
               padding: ".3rem",
             }}
-            onChange={(e) => setTaskDescription(e.target.value)}
+            value={valueDescription}
+            onChange={(e) => {
+              setTaskDescription(e.target.value);
+              setValueDescription(e.target.value);
+            }}
           />
           <TextField
             id="outlined-select-currency"
@@ -133,7 +137,7 @@ const EditTask = ({ id, title, desc, prio }) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={changeTask}>Subscribe</Button>
+          <Button onClick={changeTask}>Edit Task</Button>
         </DialogActions>
       </Dialog>
       <IconButton
