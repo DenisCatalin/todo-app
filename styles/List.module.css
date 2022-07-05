@@ -29,6 +29,7 @@ border-radius: 20px;
 /* align-items: center; */
 /* justify-content: center; */
 overflow: auto;
+padding: .5rem;
 }
 
 .mainListGrid {

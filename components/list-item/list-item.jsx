@@ -21,15 +21,23 @@ const ListItem = ({ id, title, desc, prio }) => {
     setExpanded(isExpanded ? panel : false);
   };
 
+  const border = {
+    border:
+      prio === "High"
+        ? "3px solid var(--linearRed)"
+        : prio === "Low"
+        ? "3px solid var(--linearGreen)"
+        : "3px solid var(--linearOrange)",
+    backgroundColor: value ? "#555" : "#eee",
+    transition: ".5s all ease-in-out",
+  };
+
   return (
     <>
       <Accordion
         expanded={expanded === `panel${id}`}
         onChange={handleChange(`panel${id}`)}
-        style={{
-          backgroundColor: value ? "#555555" : "#EEEEEE",
-          transition: "0.5s all ease-in-out",
-        }}
+        style={border}
         className={styles.fade}
       >
         <AccordionSummary
@@ -52,16 +60,17 @@ const ListItem = ({ id, title, desc, prio }) => {
           >
             {title}
           </Typography>
+        </AccordionSummary>
+        <AccordionDetails style={{ overflow: "auto" }}>
           <Typography
             style={{
               color: value ? "var(--linearWhite)" : "var(--linearBlack)",
               fontFamily: "Rambla",
+              opacity: ".5",
             }}
           >
-            {prio === "completed" ? `${prio}` : `Priority: ${prio}`}
+            Task Description:
           </Typography>
-        </AccordionSummary>
-        <AccordionDetails style={{ overflow: "auto" }}>
           <Typography
             style={{
               color: value ? "var(--linearWhite)" : "var(--linearBlack)",

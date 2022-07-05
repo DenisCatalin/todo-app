@@ -40,6 +40,15 @@ const ListItemCard = ({ id, title, desc, prio }) => {
             {title}
           </Typography>
           <Typography
+            style={{
+              color: value ? "var(--linearWhite)" : "var(--linearBlack)",
+              fontFamily: "Rambla",
+              opacity: ".5",
+            }}
+          >
+            Task Description:
+          </Typography>
+          <Typography
             variant="body2"
             color="text.secondary"
             style={{
