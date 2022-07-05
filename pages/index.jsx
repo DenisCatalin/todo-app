@@ -6,6 +6,12 @@ import { nameContext } from "../lib/nameContext";
 import { themeContext } from "../lib/themeContext";
 import { useRouter } from "next/router";
 
+/* 
+Alerta cand dai delete
+Alerta cand dai edit
+Alerta cand dai switch-uri
+*/
+
 export default function Home() {
   const { name, setName } = useContext(nameContext);
   const { value, setValue } = useContext(themeContext);

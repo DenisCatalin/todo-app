@@ -52,13 +52,6 @@ const EditTask = ({ id, title, desc, prio }) => {
     setOpen(false);
   };
 
-  const taskToBeAdded = {
-    taskID: taskID,
-    taskTitle: taskSubject,
-    taskDescription: taskDescription,
-    taskPriority: taskPriority,
-  };
-
   const changeTask = () => {
     console.log(taskID);
     setOpen(false);
@@ -71,20 +64,18 @@ const EditTask = ({ id, title, desc, prio }) => {
     if (remainingArr.length === 0) localStorage.removeItem("mainListOfTasks");
 
     const rarr = taskList.filter((data) => data.taskID === taskID);
-    rarr[0].taskTitle = taskSubject;
-    rarr[0].taskDescription = taskDescription;
-    rarr[0].taskPriority = taskPriority;
+    taskSubject === ""
+      ? (rarr[0].taskTitle = title)
+      : (rarr[0].taskTitle = taskSubject);
+    taskDescription === ""
+      ? (rarr[0].taskDescription = desc)
+      : (rarr[0].taskDescription = taskDescription);
+    taskPriority === ""
+      ? (rarr[0].taskPriority = prio)
+      : (rarr[0].taskPriority = taskPriority);
     setTaskList((oldArray) => [...oldArray, rarr[0]]);
     setMainTaskList((oldArray) => [...oldArray, rarr[0]]);
     console.log(rarr[0]);
-
-    // if (rarr.length === 0) localStorage.removeItem("mainListOfTasks");
-
-    // console.log(taskToBeAdded);
-
-    // setTaskList((oldArray) => [...oldArray, taskToBeAdded]);
-    // setMainTaskList((oldArray) => [...oldArray, taskToBeAdded]);
-    // localStorage.setItem("tasks", +localStorage.getItem("tasks") + 1);
   };
 
   const handleChange = (event) => {

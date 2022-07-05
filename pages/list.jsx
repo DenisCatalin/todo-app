@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Header from "../components/header/header.jsx";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, forwardRef } from "react";
 import styles from "../styles/List.module.css";
 import { themeContext } from "../lib/themeContext";
 import { listContext } from "../lib/listContext";
@@ -15,6 +15,12 @@ import { motion } from "framer-motion";
 import useWindowDimensions from "../utils/useWindowDimensions.jsx";
 import ListItemCard from "../components/list-item-card/list-item-card.jsx";
 import { showGridContext } from "../lib/showGridContext.js";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+
+const Alerta = forwardRef(function Alerta(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 export default function ListPage() {
   const { name, setName } = useContext(nameContext);
@@ -25,14 +31,40 @@ export default function ListPage() {
   const { width, height } = useWindowDimensions();
   const [newName, setNewName] = useState("");
   const [showTasksAccordion, setShowTasksAccordion] = useState();
+  const [showSnackbar, setShowSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarVariant, setSnackbarVariant] = useState("");
 
   useEffect(() => {
     setNewName(name);
   }, [name]);
 
   useEffect(() => {
+    setShowSnackbar(true);
+    setSnackbarMessage("The theme has been updated successfully!");
+    setSnackbarVariant("success");
+  }, [value]);
+
+  useEffect(() => {
+    setShowSnackbar(true);
+    setSnackbarMessage("The menu status has been updated successfully!");
+    setSnackbarVariant("success");
+  }, [showNav]);
+
+  useEffect(() => {
     setShowTasksAccordion(showGrid);
+    setShowSnackbar(true);
+    setSnackbarMessage("The task list shape has been updated successfully!");
+    setSnackbarVariant("success");
   }, [showGrid]);
+
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setShowSnackbar(false);
+  };
 
   return (
     <div
@@ -88,6 +120,20 @@ export default function ListPage() {
       {/* <Alert className={styles.alert} severity="error">
         This is an error alert — check it out!
       </Alert> */}
+      <Snackbar
+        open={showSnackbar}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <Alerta
+          onClose={handleCloseSnackbar}
+          severity={snackbarVariant}
+          sx={{ width: "100%" }}
+        >
+          {snackbarMessage}
+        </Alerta>
+      </Snackbar>
     </div>
   );
 }

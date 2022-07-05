@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, forwardRef } from "react";
 import { listContext } from "../../lib/listContext";
 import { mainListContext } from "../../lib/mainListContext";
 import TextField from "@mui/material/TextField";
@@ -16,6 +16,12 @@ import { iconColors } from "../../utils/customColors.jsx";
 import { ThemeProvider } from "@mui/material/styles";
 import { motion } from "framer-motion";
 import styles from "./AddTaskButton.module.css";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+
+const Alert = forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const AddTask = () => {
   const priorityTask = [
@@ -45,6 +51,9 @@ const AddTask = () => {
   const [taskPriority, setTaskPriority] = useState("");
   const [priority, setPriority] = useState("");
   const [taskID, setTaskID] = useState(0);
+  const [showSnackbar, setShowSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarVariant, setSnackbarVariant] = useState("");
 
   useEffect(() => {
     setTaskID(+localStorage.getItem("tasks") + 1);
@@ -71,12 +80,20 @@ const AddTask = () => {
   useEffect(() => {
     if (mainTaskList.length > 0) {
       console.log("Task list a fost actualizata", mainTaskList);
+      setShowSnackbar(true);
+      setSnackbarMessage("The To Do List has been updated successfully!");
+      setSnackbarVariant("success");
       localStorage.setItem("mainListOfTasks", JSON.stringify(mainTaskList));
     }
   }, [taskList]);
 
   const addTask = () => {
     if (taskSubject === "" || taskDescription === "" || taskPriority === "") {
+      setShowSnackbar(true);
+      setSnackbarMessage(
+        "You must fill all the fields below in order to add a task!"
+      );
+      setSnackbarVariant("error");
     } else {
       setOpen(false);
       clearTaskObject();
@@ -95,6 +112,14 @@ const AddTask = () => {
   const handleChange = (event) => {
     setPriority(event.target.value);
     setTaskPriority(event.target.value);
+  };
+
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setShowSnackbar(false);
   };
   return (
     <>
@@ -161,6 +186,20 @@ const AddTask = () => {
         >
           <AddIcon color="neutral" fontSize="large" />
         </motion.button>
+        <Snackbar
+          open={showSnackbar}
+          autoHideDuration={6000}
+          onClose={handleCloseSnackbar}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        >
+          <Alert
+            onClose={handleCloseSnackbar}
+            severity={snackbarVariant}
+            sx={{ width: "100%" }}
+          >
+            {snackbarMessage}
+          </Alert>
+        </Snackbar>
       </ThemeProvider>
     </>
   );

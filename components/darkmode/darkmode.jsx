@@ -64,7 +64,9 @@ const Darkmode = () => {
 
   const handleOnClick = () => {
     setDarkmode(!darkmode);
-    localStorage.setItem("darkmode", !darkmode);
+    setTimeout(() => {
+      localStorage.setItem("darkmode", !darkmode);
+    }, 5000);
     setValue(!darkmode);
   };
 
